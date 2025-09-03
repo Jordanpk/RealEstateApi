@@ -1,0 +1,50 @@
+# VS & tooling
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+artifacts/
+TestResults/
+
+# Logs & temp
+*.log
+*.tlog
+*.tmp
+*.temp
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# Others
+_ReSharper*/
+*.DotSettings.user
+
+# Rider
+.idea/
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Publish profiles (si usas secretos, no lo ignores si lo necesitas)
+# *.pubxml
+# *.pubxml.user
+
+# User secrets (si aplicara)
+**/secrets.json
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+
