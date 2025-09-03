@@ -11,7 +11,7 @@ API para gestión de propiedades inmobiliarias, construida con **.NET 8**, arqui
   - [JWT (seguridad)](#jwt-seguridad)
   - [Carpeta de imágenes](#carpeta-de-imágenes)
 - [Base de datos](#base-de-datos)
-  - [Opción A: restaurar el backup (.bak)](#opción-a-restaurar-el-backup-bak)
+  - [Carga DB: restaurar el backup (.bak)](#opción-a-restaurar-el-backup-bak)
 - [Ejecución](#ejecución)
 - [Swagger y autenticación](#swagger-y-autenticación)
   - [Obtener token](#obtener-token)
@@ -60,7 +60,7 @@ Edita **`RealEstate.Api/appsettings.json`**:
     "DefaultConnection": "Server=TU_SERVIDOR;Database=RealEstateDB;Trusted_Connection=True;TrustServerCertificate=True;"
   },
   "Jwt": {
-    "Key": "ClaveUltraSeguraDe32Caracteres_2025!!",
+    "Key": "TokenSecretoDeMuchosCaracteres12345!!",
     "Issuer": "RealEstateApi",
     "Audience": "RealEstateApiUsers"
   },
@@ -68,10 +68,10 @@ Edita **`RealEstate.Api/appsettings.json`**:
 }
 ```
 
-- Cambia `TU_SERVIDOR` por tu instancia (ej. `DESKTOP-XXXX\\SQLEXPRESS` o `localhost`).
+- Cambiar `TU_SERVIDOR` por la instancia (ej. `DESKTOP-XXXX\\SQLEXPRESS` o `localhost`).
 - La BD por defecto se llama **`RealEstateDB`**.
 
-> **Importante:** Si usas autenticación SQL en lugar de Windows, usa un connection string con `User Id=...;Password=...;`.
+> **Importante:** Si se usa autenticación SQL en lugar de Windows, utilizar un connection string con `User Id=...;Password=...;`.
 
 ### JWT (seguridad)
 
@@ -97,13 +97,13 @@ En `Program.cs` se mapea como **contenido estático** en `/images`.
 
 ## Base de datos
 
-El repo incluye un **archivo .bak** (backup) para que puedas cargar datos reales rápidamente.
+El repo incluye un **archivo .bak** (backup) para que se puedan cargar datos reales rápidamente.
 
-### Opción A: restaurar el backup (.bak)
+### CARGA DB: restaurar el backup (.bak)
 
 1. En SQL Server, **restaura** el backup incluido (por ejemplo a `RealEstateDB`).
-2. Ajusta la cadena de conexión en `appsettings.json` si cambiaste el nombre de la BD o el servidor.
-3. **Listo**: tendrás datos de prueba en tablas `Owner`, `Property`, `PropertyImage`, `PropertyTrace`.
+2. Ajustar la cadena de conexión en `appsettings.json` si cambian el nombre de la BD o el servidor.
+3. **Listo**: habrán datos de prueba en tablas `Owner`, `Property`, `PropertyImage`, `PropertyTrace`.
 
 ---
 
@@ -111,7 +111,7 @@ El repo incluye un **archivo .bak** (backup) para que puedas cargar datos reales
 
 ### Visual Studio
 - Establezca `RealEstate.Api` como proyecto de inicio.
-- Presiona **F5** (o `Ctrl+F5`).
+- Presionar **F5** (o `Ctrl+F5`).
 - Abre Swagger en: `https://localhost:{puerto}/swagger`
 
 ### CLI
@@ -146,8 +146,8 @@ El controlador `PropertiesController` está marcado con `[Authorize]`, por lo qu
 
 ### Autorizar en Swagger
 
-- Haz clic en el botón **Authorize** (candado).
-- **Pega solo el token crudo** (Swagger agrega `Bearer` automáticamente).  
+- Hacer clic en el botón **Authorize** (candado).
+- **Pegar solo el token crudo** (Swagger agrega `Bearer` automáticamente).  
 
 ### Errores comunes de autenticación
 
@@ -156,8 +156,8 @@ El controlador `PropertiesController` está marcado con `[Authorize]`, por lo qu
   — Solución: pega **solo** el string del token (`xxxxx.yyyyy.zzzzz`).
 
 - **IDX10720: key size must be greater than 256 bits**:  
-  — Tu `Jwt:Key` es corta.  
-  — Solución: usa **32+ caracteres**.
+  — El `Jwt:Key` es corto.  
+  — Solución: usar **32+ caracteres**.
 
 ---
 
@@ -244,11 +244,11 @@ dotnet test RealEstate.Tests/RealEstate.Tests.csproj --logger "trx;LogFileName=T
   - Usa `[FromForm]` y un DTO con una propiedad `IFormFile File` (p. ej. `PropertyImageUploadDto`).
 
 - **testhost.deps.json** faltante (tests de integración):
-  - Agrega en `RealEstate.Api.csproj`:  
+  - Agregar en `RealEstate.Api.csproj`:  
     `<PreserveCompilationContext>true</PreserveCompilationContext>`
   - En `RealEstate.Tests.csproj`:  
     `<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>`
-  - Verifica que `RealEstate.Tests` **referencie** a `RealEstate.Api`.
+  - Verificar que `RealEstate.Tests` **referencie** a `RealEstate.Api`.
 
 ---
 
